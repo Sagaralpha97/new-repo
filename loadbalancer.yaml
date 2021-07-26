@@ -1,0 +1,15 @@
+---
+ - hosts: 10.1.0.6
+   become: yes
+   tasks:
+    - name: nginx installation
+      apt:
+       name: nginx
+       state: present
+       update_cache: yes
+
+    - name: service module
+      service:
+       name: nginx
+       state: started
+       enabled: yes

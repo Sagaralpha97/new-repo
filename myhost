@@ -1,2 +1,8 @@
+[webserver]
+10.1.0.7
+
+[database]
+10.1.0.4
+
 [loadbalancer]
-10.1.0.6
+10.1.0.8

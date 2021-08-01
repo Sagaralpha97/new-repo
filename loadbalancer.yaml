@@ -1,15 +1,27 @@
 ---
- - hosts: 10.1.0.6
-   become: yes
+ - hosts: loadbalancer
+   become: true
    tasks:
-    - name: nginx installation
+    - name: loadbalancer install
       apt:
        name: nginx
        state: present
        update_cache: yes
 
-    - name: service module
+    - name: starting nginx
       service:
        name: nginx
        state: started
        enabled: yes
+
+    - name: create new file
+      file:
+       path: /root/playbook2.yaml
+       state: absent
+      notify: restart nginx
+
+   handlers:
+    - name: restart nginx
+      service:
+       name: nginx
+       state: started

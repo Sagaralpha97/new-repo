@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name:  newdeploy
+ labels:
+  group: frontend
+spec:
+ spec:
+ revisionHistoryLimit: 12
+ strategy:
+  rollingUpdate:
+   maxSurge: 3 
+   maxUnavailable: 0       
+ template:
+  metadata:
+   name: webapppod
+   labels:
+    group: frontend
+  spec:
+   containers:
+    - name: webapp
+      image: newimage:v2
+ replicas: 7
+ selector:
+  matchLabels:    
+    group : frontend 
+          

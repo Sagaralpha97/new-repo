@@ -1,27 +1,12 @@
----
- - hosts: loadbalancer
-   become: true
-   tasks:
-    - name: loadbalancer install
-      apt:
-       name: nginx
-       state: present
-       update_cache: yes
+apiVersion: v1
+kind: Service
+metadata:
+ name: service
+spec:
+ type: LoadBalancer
+ ports:
+  - targetPort: 80
+    port: 80
+ selector:
+   tier: frontend       
 
-    - name: starting nginx
-      service:
-       name: nginx
-       state: started
-       enabled: yes
-
-    - name: create new file
-      file:
-       path: /root/playbook2.yaml
-       state: absent
-      notify: restart nginx
-
-   handlers:
-    - name: restart nginx
-      service:
-       name: nginx
-       state: started
